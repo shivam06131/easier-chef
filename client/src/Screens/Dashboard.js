@@ -16,6 +16,8 @@ import {
 } from "@material-ui/core/styles";
 import { FieldArray, Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { save_to_loacalStore } from "../Actions/RecipeActions";
 
 const theme = createMuiTheme({
   overrides: {
@@ -24,11 +26,11 @@ const theme = createMuiTheme({
         backgroundColor: "#f8feff",
       },
     },
-    MuiCardContent: {
-      root: {
-        backgroundColor: "#eafdff",
-      },
-    },
+    // MuiCardContent: {
+    //   root: {
+    //     backgroundColor: "#eafdff",
+    //   },
+    // },
   },
 });
 
@@ -52,9 +54,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2%",
     marginBottom: "4%",
   },
+  form : {
+    backgroundColor : "#eafdff"
+  }
 }));
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
   const initialValues = {
     recipeName: "",
     recipeImageUrl: "",
@@ -69,7 +76,7 @@ const Dashboard = () => {
   };
 
   const onSubmit = (values) => {
-    console.log(JSON.stringify(values));
+    dispatch(save_to_loacalStore(values));
   };
 
   const classes = useStyles();
@@ -81,7 +88,9 @@ const Dashboard = () => {
     recipeImageUrl: Yup.string()
       .required("ImageUrl is Required!!!")
       .min(10, "Too short"),
-    stepsToMake: Yup.array().min(1).required("stepsToMake is reqYired!!"),
+    stepsToMake: Yup.array()
+      .of(Yup.string())
+      .required("stepsToMake is reqYired!!"),
     Addingredients: Yup.array()
       .of(
         Yup.object().shape({
@@ -99,7 +108,7 @@ const Dashboard = () => {
     <ThemeProvider theme={theme}>
       <Container maxWidth="sm" className={classes.container}>
         <div>
-          <Card>
+          <Card className={classes.form}>
             <CardContent>
               <Typography
                 variant="h4"
@@ -116,7 +125,6 @@ const Dashboard = () => {
                 >
                   {(props) => (
                     <Form>
-                      {console.log("props", props)}
                       <Grid container spacing={3} justify="space-around">
                         <Grid item xs={12} sm={10}>
                           <div>
@@ -218,7 +226,6 @@ const Dashboard = () => {
                                     fieldArrayProps;
                                   const { values } = form;
                                   const { Addingredients } = values;
-                                  console.log(Addingredients);
                                   return (
                                     <div>
                                       {Addingredients.map(
@@ -324,4 +331,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default React.memo(Dashboard);

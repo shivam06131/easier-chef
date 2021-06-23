@@ -13,6 +13,9 @@ const theme = createMuiTheme({
       MuiAppBar : {
           colorPrimary : {
               backgroundColor : "#fce42b"
+          },
+          root : {
+            height : "8%"
           }
       },
       MuiTypography : {
