@@ -110,7 +110,7 @@ const Dashboard = () => {
         <div>
           <Card className={classes.form}>
             <CardContent>
-              <Typography
+              <Typography 
                 variant="h4"
                 align="center"
                 className={classes.heading}
