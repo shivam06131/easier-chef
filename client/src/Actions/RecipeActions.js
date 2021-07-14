@@ -4,7 +4,8 @@ export const save_to_loacalStore = (data) => async (dispatch) => {
   console.log("data", data);
   const prevData = JSON.parse(localStorage.getItem("recipe"));
   console.log("prevData" , prevData)
-  localStorage.setItem("recipe", JSON.stringify([...prevData, data]));
+  localStorage.setItem("recipe",prevData ? JSON.stringify([...prevData, data]) : JSON.stringify([data]));
+  // localStorage.setItem("recipe", JSON.stringify([...prevData, data]));
   dispatch({ type: SAVE_TO_LOCALSTORE, payload: data });
 };
 

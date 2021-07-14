@@ -166,7 +166,7 @@ const Recipe = () => {
         </div>
       ) : (
         <Container className={classes.parent}>
-          <Card maxWidth="sm">
+          <Card >
             <CardContent>
               <Typography variant="h4" align="center">
                 NO Recipe availabel currently

@@ -76,6 +76,7 @@ const Dashboard = () => {
   };
 
   const onSubmit = (values) => {
+    console.log("values", values)
     dispatch(save_to_loacalStore(values));
   };
 
